@@ -1,0 +1,53 @@
+[examples]
+
+A simple policy:
+
+  $ cpabe-enc pub_key security_report.pdf 'foo and (bar or bif)'
+
+A complex policy specified on stdin:
+
+  $ cpabe-enc pub_key security_report.pdf
+.br
+  (sysadmin and (hire_date < 946702800 or security_team)) or
+.br
+  (business_staff and 2 of (exec_level >= 5#4, audit_group, strat_team))
+.br
+  ^D
+
+[policy language]
+
+Policies are specified using simple expressions of the attributes
+given to cpabe-keygen (1). The most basic policy consists of a single
+such attribute. It will only match keys produced by giving that
+attribute (possibly among others) to cpabe-keygen (1).
+
+Another type of policy consists of a comparison between an attribute
+name and a non-negative integer. The following comparisons are
+allowed: `<', `>', `<=', `>=', and `='. In this case, the attribute
+used must be a numerical attribute and specified appropriately to
+cpabe-keygen (1) (see its man page for details). Note that a
+comparison with an explicit length integer (e.g., "exec_level >= 5#4")
+can only match an attribute with the same length (so "exec_level =
+8#4" will match but "exec_level = 8#5" will not).
+
+Policies of these two basic types may be combined using the the
+keywords `and' and `or' (which may not be used as attributes), as
+shown in the first example above. The `and' operator has higher
+precedence than `or', and parenthesis may be used to specify other
+groupings.
+
+Policies may also be combined using a threshold gate operator, written
+as `K of (P1, P2, ... PN)', where K is a positive integer less than or
+equal to N, and P1, ... PN are policies. Such a policy will only be
+satisfied by a key that satisfies at least K of the policies P1, ...
+PN. An example of the threshold gate operator is included as part of
+the policy in the second example above.
+
+Note that attribute names are case sensitive and must begin with a
+letter, and the keywords `and', `or', and `of' may not be used. Also,
+`&' and `|' are synonyms for `and' and `or'.
+
+[see also]
+.BR cpabe-setup (1),
+.BR cpabe-keygen (1),
+.BR cpabe-dec (1)

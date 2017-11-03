@@ -1,0 +1,23 @@
+[examples]
+
+Generating a key for a new employee Sara:
+
+  $ cpabe-keygen -o sara_priv_key pub_key master_key \\
+.br
+      sysadmin it_department
+
+Generating a key with more complicated attributes:
+
+  $ cpabe-keygen -o kevin_priv_key pub_key master_key \\
+.br
+      business_staff strategy_team 'executive_level = 7#4' \\
+.br
+      office=2362 'hire_date = '`date +%s`
+
+Note the usage of date (1) as a convenient way of storing a time in a
+numerical attribute.
+
+[see also]
+.BR cpabe-setup (1),
+.BR cpabe-enc (1),
+.BR cpabe-dec (1)

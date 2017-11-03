@@ -1,0 +1,13 @@
+This software provides several tools implementing a scheme for
+"ciphertext-policy attribute based encryption" (CP-ABE).
+
+To install this software, you will need to have the Pairing-Based
+Cryptography (PBC) library installed. You can get it from the
+following page:
+
+   http://crypto.stanford.edu/pbc/
+
+For more information on CP-ABE and a tutorial on using the tools, see
+the project homepage:
+
+   http://acsc.csl.sri.com/cpabe/

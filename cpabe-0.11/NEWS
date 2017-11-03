@@ -1,0 +1,66 @@
+Release 0.11: Thursday, March 24, 2011
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Applied patch from Jó to support DESTDIR in the build tools.
+
+Release 0.10: Monday, May  3, 2010
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Fixed a bug in the build system which was brought to my attention by
+Zhang Ronggang <zrg@ncepu.edu.cn>.
+
+Release 0.9: Tuesday, August 25, 2009
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Applied patch from Michael Braun (m.braun@tu-ilmenau.de) which fixes
+bug in bswabe_pub_free and updates bswabe.h to be C++ compatible.
+
+Applied patches from Jó Ágila Bitsch Link
+(jo.bitsch@cs.rwth-aachen.de) to compile against pbc-0.5.4.
+
+Release 0.8: Monday, May  4, 2009
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Fixed a bug in the build system (thanks to Katya Kisyova for pointing
+it out).
+
+Release 0.7: Monday, October 22, 2007
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Fixed a bug in the build system (thanks to Eric Lin for pointing it
+out) and cleaned it up a little.
+
+Release 0.6: Friday, August 31, 2007
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Moved core crypto code into the bswabe library, which is now a
+separate package.
+
+Implemented explicit length numerical attributes and flexint
+("flexible integer") numerical attributes.
+
+Release 0.5: Thursday, January 18, 2007
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Fixed word size bugs helpfully pointed out by Ryan Moriarty.
+
+Release 0.4: Friday, December  1, 2006
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Added documentation, bugfixes.
+
+Release 0.3: Wednesday, November  8, 2006
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Added nice policy language with support for numerical attributes and
+range queries. Implemented performance optimizations for decryption.
+
+Release 0.2: Friday, November  3, 2006
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Updated to the new version of the scheme with beta's.
+
+Release 0.1: Thursday, October 19, 2006
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+First version that appears to be working.

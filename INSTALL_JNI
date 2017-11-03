@@ -1,0 +1,44 @@
+A. INSTALLATION
+
+1. Install glib
+./configure --prefix=/usr/local --enable-static --with-pic
+make
+sudo make install
+
+2. Install gmp
+./configure --prefix=/usr/local --enable-static --with-pic
+make
+sudo make install
+
+3. Install openssl
+./config
+make CC="gcc -fPIC"
+sudo cp libcrypto.a /usr/local/lib
+sudo cp libssl.a /usr/local/lib
+
+4. Install pbc
+cd pbc-0.5.14
+./configure --prefix=/usr/local --with-pic
+make
+sudo make install
+
+5. Install libbswabe
+cd libbswabe-0.9
+./configure --prefix=/usr/local
+make CC="gcc -fPIC"
+sudo make install
+
+Step 6. Build shared library
+make clean
+make jni
+
+II. JNI TESTING
+cd jni
+java -Djava.library.path=.. tw/edu/au/csie/ucan/beebit/setup	you will get a master key (mstKey) and a public key (pubKey)
+java -Djava.library.path=.. tw/edu/au/csie/ucan/beebit/keygen   you will get a secret key (secKey_ok) with attributes (bob, male, role=1) and
+                                     				             a secret key (secKey_ng) with attributes (alice, female, role=3)
+java -Djava.library.path=.. tw/edu/au/csie/ucan/beebit/enc	data is encrypted as data.cpabe with pubKey
+java -Djava.library.path=.. tw/edu/au/csie/ucan/beebit/dec	first, data.cpabe can not be decrpyed with secKey_ng
+								second, data.cpabe can be decrypted with secKey_ok
+java -Djava.library.path=.. tw/edu/au/csie/ucan/beebit/encdec	you can input a message, then this message will be encrypted with pubKey and 
+								decrypted with secKey_ok
