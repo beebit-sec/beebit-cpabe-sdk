@@ -6,7 +6,7 @@ int main(void){
 	unsigned char plaintext[256];
 	unsigned char* ciphertext = "PLAIN";
 
-	scanf("%s", plaintext);
+	fgets(plaintext, 256, stdin);
 
 	// ENCRYPTION PROCESS
 	int enc_length = 0;

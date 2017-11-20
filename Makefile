@@ -103,7 +103,7 @@ clean:
 install:
 	sudo cp libbeebit-cpabe-0.1.a /usr/local/lib
 	sudo ln -f -s /usr/local/lib/libbeebit-cpabe-0.1.a /usr/local/lib/libbeebit-cpabe.a
-	sudo cp beebitcpabe.h /usr/loca/include
+	sudo cp beebitcpabe.h /usr/local/include
 
 uninstall:
 	sudo rm /usr/local/lib/libbeebit-cpabe-0.1.a

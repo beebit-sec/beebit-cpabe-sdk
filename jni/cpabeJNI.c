@@ -44,16 +44,18 @@ JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_keygen
 }
 
 JNIEXPORT jbyteArray JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_enc
-	(JNIEnv * env, jobject obj, jstring pk_path, jstring pt_str, jstring policy_str) {
+	(JNIEnv * env, jobject obj, jstring pk_path, jbyteArray pt_str, jstring policy_str) {
 	unsigned char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
-	unsigned char *pt = (*env)->GetStringUTFChars(env, pt_str, 0);
+	jboolean isCopy;
+	jbyte* pt = (*env)->GetByteArrayElements(env, pt_str, &isCopy); 
+	//unsigned char *pt = (*env)->GetStringUTFChars(env, pt_str, 0);
 	unsigned char *policy = (*env)->GetStringUTFChars(env, policy_str, 0);
 
 	unsigned char* ct;
 
 	int len = 0;
 
-	if((len = cpabe_enc(pk, pt, policy, &ct)) == -1){
+	if((len = cpabe_enc(pk, (unsigned char*)pt, policy, &ct)) == -1){
 		return NULL;
 	}
 
