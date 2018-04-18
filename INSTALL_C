@@ -1,7 +1,7 @@
 A. INSTALLATION
 
 1. Prerequisites:
-The following packages must be installed - m4, flex, bison, libssl-dev, libgmp-dev (>4.0.0), and glib (>2.0.0).
+The following packages must be installed - m4, flex, bison, libssl-dev, libgmp-dev (>4.0.0), and libglib2.0-dev (>2.0.0).
 
 2. Install PBC library (Source: https://crypto.stanford.edu/pbc/)
 cd pbc-0.5.14
