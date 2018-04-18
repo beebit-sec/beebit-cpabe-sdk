@@ -73,7 +73,12 @@ int cpabe_fenc(unsigned char* pk_path, unsigned char* pt_path, unsigned char* po
 	return 0;
 }
 
+
 int cpabe_enc(unsigned char* pk_path, unsigned char* pt, unsigned char* policy_str, unsigned char** ct){
+	return cpabe_enc_l(pk_path, pt, strlen(pt), policy_str, ct);
+}
+
+int cpabe_enc_l(unsigned char* pk_path, unsigned char* pt, int pt_len,  unsigned char* policy_str, unsigned char** ct){
 	bswabe_pub_t* pub;
 	bswabe_cph_t* cph;
 	int file_len;
@@ -97,7 +102,7 @@ int cpabe_enc(unsigned char* pk_path, unsigned char* pt, unsigned char* policy_s
 	cph_buf = bswabe_cph_serialize(cph);
 	bswabe_cph_free(cph);
 
-	file_len = strlen(pt);
+	file_len = pt_len;//strlen(pt);
 	//plt = g_byte_array_new_take(plaintext, file_len);
 	plt = g_byte_array_new();
 	g_byte_array_set_size(plt, file_len);

@@ -51,6 +51,7 @@ int cpabe_keygen(unsigned char* pk_path, unsigned char* mk_path, unsigned char* 
  */
 
 int cpabe_enc(unsigned char* pk_path, unsigned char* pt, unsigned char* policy_str, unsigned char** ct);
+int cpabe_enc_l(unsigned char* pk_path, unsigned char* pt, int pt_len, unsigned char* policy_str, unsigned char** ct);
 /*  Purpose:
  *  Encrypt non-file plaintext into non-file ciphertext with public key and policy using CPABE.  
  *

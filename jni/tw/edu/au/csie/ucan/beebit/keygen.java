@@ -9,7 +9,10 @@ class keygen {
 		}
 		System.out.print("OK KEYGEN SUCCESS(JNI)\n");
 
-		if(bee.keygen("./pubKey","./mstKey","./secKey_ng",3,"alice","female","role = 3") == -1)
+		String[] attrs = {"alice","femail","role = 3"};
+
+		//if(bee.keygen("./pubKey","./mstKey","./secKey_ng",3,"alice","female","role = 3") == -1)
+		if(bee.keygen("./pubKey","./mstKey","./secKey_ng",3,attrs) == -1)
 		{
     			System.out.print("NG KEYGEN FAILED(JNI)\n");
 		}

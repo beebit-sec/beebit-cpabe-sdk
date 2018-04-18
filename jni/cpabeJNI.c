@@ -18,6 +18,11 @@ JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_setup
 	return cpabe_setup(pk, mk);
 }
 
+JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_vkeygen
+	(JNIEnv * env, jobject obj, jstring pk_path, jstring mk_path, jstring sk_path, jint attr_no, jobjectArray params) {
+	return Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_keygen(env, obj, pk_path, mk_path, sk_path, attr_no, params);
+}
+
 JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_keygen
 	(JNIEnv * env, jobject obj, jstring pk_path, jstring mk_path, jstring sk_path, jint attr_no, jobjectArray params) {
 
@@ -48,6 +53,7 @@ JNIEXPORT jbyteArray JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_enc
 	unsigned char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
 	jboolean isCopy;
 	jbyte* pt = (*env)->GetByteArrayElements(env, pt_str, &isCopy); 
+	int pt_len = (*env)->GetArrayLength(env, pt_str);
 	//unsigned char *pt = (*env)->GetStringUTFChars(env, pt_str, 0);
 	unsigned char *policy = (*env)->GetStringUTFChars(env, policy_str, 0);
 
@@ -55,10 +61,9 @@ JNIEXPORT jbyteArray JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_enc
 
 	int len = 0;
 
-	if((len = cpabe_enc(pk, (unsigned char*)pt, policy, &ct)) == -1){
+	if((len = cpabe_enc_l(pk, (unsigned char*)pt, pt_len, policy, &ct)) == -1){
 		return NULL;
 	}
-
 	jbyteArray bytes = (*env)->NewByteArray(env, len);
 	(*env)->SetByteArrayRegion(env, bytes, 0, len, (jbyte*)ct);
 	

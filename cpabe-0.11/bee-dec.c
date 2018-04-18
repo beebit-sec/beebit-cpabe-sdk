@@ -37,7 +37,6 @@ int cpabe_fdec(unsigned char* pk_path, unsigned char* sk_path, unsigned char* ct
 	unsigned char* prv_file = sk_path;
 	unsigned char* in_file  = ct_path;
 	unsigned char* out_file;
-
 	if(keep && !strcmp(in_file, out_file) ){
 		printf("cannot keep input file when decrypting file in place \n");
 	}	

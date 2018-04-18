@@ -19,7 +19,7 @@ class encdec {
 		String ct_str = new String(ct, StandardCharsets.UTF_8);
 		System.out.print("ENC SUCCESS(JNI): (Ciphertext) " + ct.length + "\n");
 
-    		byte[] pt = bee.dec("./pubKey", "./secKey_ok", ct);
+    		byte[] pt = bee.dec("./pubKey", "./secKey_ng", ct);
 		String pt_str = new String(pt, StandardCharsets.UTF_8);
 		System.out.print("ENC SUCCESS(JNI): " + pt_str + " " + pt.length + "\n");
 	}	
