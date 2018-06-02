@@ -9,8 +9,8 @@
 #include "bswabe.h"
 #include "common.h"
 
-char* pub_file = "pub_key";
-char* msk_file = "master_key";
+char* pub_file = "pkey";
+char* msk_file = "mkey";
 
 int cpabe_setup(char* pub_pathname, char* msk_pathname)
 {
@@ -19,11 +19,13 @@ int cpabe_setup(char* pub_pathname, char* msk_pathname)
 	bswabe_setup(&pub, &msk);
 	pub_file = pub_pathname;
 	msk_file = msk_pathname;
-	if(spit_file(pub_file, bswabe_pub_serialize(pub), 1)==-1){
-		 return -1;
+	if(spit_file(pub_file, bswabe_pub_serialize(pub), 1) == EXIT_FAILURE)
+	{
+		 return EXIT_FAILURE;
 	}
-	if(spit_file(msk_file, bswabe_msk_serialize(msk), 1)==-1){
-		return -1;
+	if(spit_file(msk_file, bswabe_msk_serialize(msk), 1) == EXIT_FAILURE)
+	{
+		return EXIT_FAILURE;
 	}
-	return 0;
+	return EXIT_SUCCESS;
 }

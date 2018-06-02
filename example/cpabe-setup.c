@@ -1,12 +1,14 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include "../beebitcpabe.h"
 
-int main(void){
-
-	if(cpabe_setup("./pubKey","./mstKey") == -1){
+int main(void)
+{
+	if(cpabe_setup("./pubKey","./mstKey") == EXIT_FAILURE)
+	{
 		printf("SETUP FAILED!\n");
-		return -1;
+		return EXIT_FAILURE;
 	}
 	printf("SETUP SUCCESS\n");
-	return 0;
+	return EXIT_SUCCESS;
 }

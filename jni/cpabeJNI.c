@@ -7,12 +7,9 @@ JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_setup
 	(JNIEnv * env, jobject obj, jstring pk_path, jstring mk_path) {
 	
 	int len = (*env)->GetStringLength(env, pk_path);
-	//unsigned char* pk = malloc(sizeof(unsigned char) * len);
-    	//unsigned char* pk = (*env)->GetByteArrayRegion(env, pk_path, 0);
 	unsigned char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
+
 	len = (*env)->GetArrayLength(env, mk_path);
-	//unsigned char* mk = malloc(sizeof(unsigned char) * len);
-    	//(*env)->GetByteArrayRegion(env, mk_path, 0, len, mk);
 	unsigned char *mk = (*env)->GetStringUTFChars(env, mk_path, 0);
 
 	return cpabe_setup(pk, mk);
