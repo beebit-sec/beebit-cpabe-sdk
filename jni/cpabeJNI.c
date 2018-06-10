@@ -29,8 +29,6 @@ JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_keygen
 
 	int argc = (int) attr_no;
 
-	//unsigned char argv[argc][50];
-
 	char **argv = (char **) malloc(argc * sizeof(char *));
 	
 	int i;
@@ -38,9 +36,7 @@ JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_keygen
 	for (i = 0; i < argc; i++) {
   		jstring arg = (jstring) ((*env)->GetObjectArrayElement(env, params, i));
   		argv[i] = (char*)((*env)->GetStringUTFChars(env, arg, 0));
-		//argv[i] = (char*)(*env)->ReleaseStringUTFChars(env, arg, argc);
-  		printf("%s\n",argv[i]);
-		//printf("%s\n", argv[i]);
+  		//printf("%s\n",argv[i]);
 	}
 	return cpabe_vkeygen(sk, pk, mk, argc, argv);
 }
