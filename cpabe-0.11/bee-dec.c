@@ -20,7 +20,7 @@
 /* int   report_ops = 0; */
 int   keep       = 0;
 
-int cpabe_fdec(unsigned char* pk_path, unsigned char* sk_path, unsigned char* ct_path){
+int cpabe_fdec(char* pk_path, char* sk_path, char* ct_path, char* pt_path){
 
 	bswabe_pub_t* pub;
 	bswabe_prv_t* prv;
@@ -33,10 +33,11 @@ int cpabe_fdec(unsigned char* pk_path, unsigned char* sk_path, unsigned char* ct
 	bswabe_cph_t* cph;
 	element_t m;
 
-	unsigned char* pub_file = pk_path;
-	unsigned char* prv_file = sk_path;
-	unsigned char* in_file  = ct_path;
-	unsigned char* out_file;
+	char* pub_file = pk_path;
+	char* prv_file = sk_path;
+	char* in_file  = ct_path;
+	char* out_file = pt_path;
+
 	if(keep && !strcmp(in_file, out_file) ){
 		printf("cannot keep input file when decrypting file in place \n");
 	}	
@@ -65,14 +66,14 @@ int cpabe_fdec(unsigned char* pk_path, unsigned char* sk_path, unsigned char* ct
 	plt = aes_128_cbc_decrypt(aes_buf, m);
 	g_byte_array_set_size(plt, file_len);
 	g_byte_array_free(aes_buf, 1);
-
+/*
 	if(strlen(in_file) > 6 && !strcmp(in_file + strlen(in_file) - 6, ".cpabe") ){
 		out_file = g_strndup(in_file, strlen(in_file) - 6);
 	}else{
 		out_file = strdup(in_file);
 		keep=1;
 	}
-
+*/
 	if(spit_file(out_file, plt, 1)==-1){
 		return -1;
 	}
@@ -83,7 +84,7 @@ int cpabe_fdec(unsigned char* pk_path, unsigned char* sk_path, unsigned char* ct
 	return 0;
 }
 
-int cpabe_dec(unsigned char* pk_path, unsigned char* sk_path, unsigned char* ct, unsigned char** pt){
+int cpabe_dec(char* pk_path, char* sk_path, char* ct, char** pt){
 
 	bswabe_pub_t* pub;
 	bswabe_prv_t* prv;
@@ -97,9 +98,9 @@ int cpabe_dec(unsigned char* pk_path, unsigned char* sk_path, unsigned char* ct,
 	element_t m;
 	int dec_len;
 
-	unsigned char* pub_file = pk_path;
-	unsigned char* prv_file = sk_path;
-	unsigned char* in_file  = ct;
+	char* pub_file = pk_path;
+	char* prv_file = sk_path;
+	char* in_file  = ct;
 
 	if((sf_pf = suck_file(pub_file)) == NULL) {
 		return -1;
@@ -140,7 +141,7 @@ int cpabe_dec(unsigned char* pk_path, unsigned char* sk_path, unsigned char* ct,
 	g_byte_array_set_size(plt, file_len);
 	g_byte_array_free(aes_buf, 1);
 
-	*pt = plt->data;
+	*pt = (char*)plt->data;
 	dec_len = plt->len;
 	//if(strlen(in_file) > 6 && !strcmp(in_file + strlen(in_file) - 6, ".cpabe") ){
 	//	out_file = g_strndup(in_file, strlen(in_file) - 6);

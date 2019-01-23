@@ -11,7 +11,7 @@ public class cpabeJNI {
 	public native byte[] enc(String pk_path, byte[] pt, String pllicy_str);
 	public native byte[] dec(String pk_path, String sk_path, byte[] ct);
 	public native int fenc(String pk_path, String pt_path, String policy_str, String ct_path);
-	public native int fdec(String pk_path, String sk_path, String ct_path);
+	public native int fdec(String pk_path, String sk_path, String ct_path, String pt_path);
 
 	static { System.loadLibrary("beebit-cpabe"); };
 }

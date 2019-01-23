@@ -1,33 +1,49 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "../beebitcpabe.h"
 
-int main(void){
+int main(int argc, char** argv) {
 
-	unsigned char plaintext[256];
-	unsigned char* ciphertext = "PLAIN";
-
-	fgets(plaintext, 256, stdin);
-
-	// ENCRYPTION PROCESS
-	int enc_length = 0;
-	enc_length = cpabe_enc("./pubKey", plaintext, "role <= 2", &ciphertext);
-	if(enc_length == -1){
-		printf("ENC FAILED\n");
-		return -1;
+	if(argc < 4) {
+		fprintf(stderr, "Usage: cpabe-encdec [pk] [sk] [ap]\n");
+		fprintf(stderr, "pk: path to public key\n");
+		fprintf(stderr, "sk: path to secret key\n");
+		fprintf(stderr, "ap: access policy\n");
+		return EXIT_FAILURE;
 	}
-	printf("ENC SUCCESS: (%s->%s[len=%d])\n", plaintext, ciphertext, enc_length);
+
+	char* pk = argv[1];
+	char* sk = argv[2];
+	char* ap = argv[3];
+
+	char pt[256];
+	char* ct = NULL;
+
+	fprintf(stderr, "Plain Text:\n");
+	scanf("%[^\n]s)", pt);
+	
+	// ENCRYPTION PROCESS
+	int len = 0;
+	len = cpabe_enc(pk, pt, ap, &ct);
+	if(len == -1){
+		fprintf(stderr, "ENC FAILED\n");
+		return EXIT_FAILURE;
+	}
+	fprintf(stderr, "ENC SUCCESS\n");
+	fprintf(stderr, "[ct len = %d])\n", len);
 
 	// DECRYPTION PROCESS
-	unsigned char* result = 0;
-	int dec_length = 0;
+	char* result = NULL;
 	
-	dec_length = cpabe_dec("./pubKey", "./secKey_ok", ciphertext, &result);
-	if(dec_length == -1){
-		printf("DEC FAIL\n");
-		return -1;
+	len = cpabe_dec(pk, sk, ct, &result);
+	if(len == -1){
+		fprintf(stderr, "DEC FAIL\n");
+		return EXIT_FAILURE;
 	}
-	printf("DEC SUCCESS: (%s->%s[len=%d])\n", ciphertext, result, dec_length);
+	result[len] = '\0';	
+	fprintf(stderr, "DEC SUCCESS\n");
+	fprintf(stderr, "%s [pt len = %d])\n", result, len);
 
-	return 0;
+	return EXIT_SUCCESS;
 }
 

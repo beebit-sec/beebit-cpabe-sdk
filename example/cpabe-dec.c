@@ -1,20 +1,29 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "../beebitcpabe.h"
 
-int main(void){
+int main(int argc, char** argv) {
 
-	printf("=== DEC WITH NG KEY ===\n");
-	if(cpabe_fdec("./pubKey","./secKey_ng","./data.cpabe") == -1){
-		printf("DEC FAILED\n");
-		//return -1;
+	if(argc < 5) {
+		fprintf(stderr, "Usage: cpabe-dec [pk] [sk] [ct] [pt]\n");
+		fprintf(stderr, "pk: path to public key\n");
+		fprintf(stderr, "sk: path to secret ket\n");
+		fprintf(stderr, "ct: path to encrypted file (cipher text)\n");
+		fprintf(stderr, "pt: path to original file (plain text)\n");
+		return EXIT_FAILURE;
 	}
 
-	printf("=== DEC WITH OK KEY ===\n");
-	if(cpabe_fdec("./pubKey","./secKey_ok","./data.cpabe") == -1){
-		printf("DEC FAILED\n");
-		return -1;
+	char* pk = argv[1];
+	char* sk = argv[2];
+	char* ct = argv[3];
+	char* pt = argv[4];
+
+	if(cpabe_fdec(pk, sk, ct, pt) == -1) {
+		fprintf(stderr, "Decrypt failed!\n");
+		return EXIT_FAILURE;
 	}
-	printf("DEC SUCCESS\n");
-	return 0;
+	fprintf(stderr, "Decrypt success!\n");
+	fprintf(stderr, "File (%s) decrypted to file (%s).\n", ct, pt);
+	return EXIT_SUCCESS;
 }
 

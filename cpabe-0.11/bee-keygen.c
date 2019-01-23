@@ -30,9 +30,9 @@ int cpabe_keygen(char* priv_name, char* pub_key, char* msk_key, int attribute, .
 	int i;
 	int n;
 
-	unsigned char* pub_file = pub_key;
-	unsigned char* msk_file = msk_key;
-	unsigned char* out_file = "priv_key";
+	char* pub_file = pub_key;
+	char* msk_file = msk_key;
+	char* out_file = "priv_key";
 
 	if(!strcmp(priv_name,"default")){
 		out_file = "priv_key";
@@ -57,7 +57,7 @@ int cpabe_keygen(char* priv_name, char* pub_key, char* msk_key, int attribute, .
 	alist = g_slist_sort(alist, comp_string);//排序照英文字母頭
 	n = g_slist_length(alist);
 
-	unsigned char** attrs = malloc((n + 1) * sizeof(char*));
+	char** attrs = malloc((n + 1) * sizeof(char*));
 	i = 0;
 
 	for(ap = alist; ap ; ap = ap->next )
@@ -97,9 +97,9 @@ int cpabe_vkeygen(char* priv_name, char* pub_key, char* msk_key, int attribute, 
 	int i;
 	int n;
 
-	unsigned char* pub_file = pub_key;
-	unsigned char* msk_file = msk_key;
-	unsigned char* out_file = "priv_key";
+	char* pub_file = pub_key;
+	char* msk_file = msk_key;
+	char* out_file = "priv_key";
 
 	if(!strcmp(priv_name,"default")){
 		out_file = "priv_key";
@@ -108,7 +108,6 @@ int cpabe_vkeygen(char* priv_name, char* pub_key, char* msk_key, int attribute, 
 	}
 
 	int num;
-
 	for(num=0;num<attribute;num++){
 		if(parse_attribute(&alist,argv[num]/*att*/) == -1){
 			return -1;
@@ -117,13 +116,12 @@ int cpabe_vkeygen(char* priv_name, char* pub_key, char* msk_key, int attribute, 
 
 	alist = g_slist_sort(alist, comp_string);//排序照英文字母頭
 	n = g_slist_length(alist);
-
-	unsigned char** attrs = malloc((n + 1) * sizeof(char*));
+	char** attrs = malloc((n + 1) * sizeof(char*));
 	i = 0;
 
 	for(ap = alist; ap ; ap = ap->next )
 		attrs[i++] = ap->data;
-  	
+	
 	attrs[i] = 0;
   
 	GByteArray* temp;
@@ -132,7 +130,6 @@ int cpabe_vkeygen(char* priv_name, char* pub_key, char* msk_key, int attribute, 
 		return -1;
 	}
   	pub = bswabe_pub_unserialize(temp, 1);
-
 	
 	if((temp  = suck_file(msk_file)) == NULL) {
 		return -1;

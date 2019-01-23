@@ -1,4 +1,4 @@
-int cpabe_setup(unsigned char* pk_path, unsigned char* mk_path);
+int cpabe_setup(char* pk_path, char* mk_path);
 /*  Purpose:
  *  Generate system parameters, a public key, and a master key
  *  used in keygen, encrytion, decrption
@@ -12,16 +12,16 @@ int cpabe_setup(unsigned char* pk_path, unsigned char* mk_path);
  *  -1: failure
  */
 
-int cpabe_vkeygen(unsigned char* pk_path, unsigned char* mk_path, unsigned char* sk_path, int attr_no, char** argv);
+int cpabe_vkeygen(char* sk_path, char* pk_path, char* mk_path, int attr_no, char** argv);
 /*  Purpose:
  *  Generate a secret key with the given attributes with public key and master key
  *  About the key attributes, please refer the following link 
  *  http://acsc.cs.utexas.edu/cpabe/cpabe-keygen.html
  *
  *  Parameters:
- *  1. pk_path: the path of public key
- *  2. mk_path: the path of master key 
- *  3. pk_path: the path of secret key
+ *  1. pk_path: the path of secret key
+ *  2. pk_path: the path of public key
+ *  3. mk_path: the path of master key 
  *  4. attr_no: the number of attributes
  *  5. argv: a serial of attributes in two forms, non-numerical and numerical, specified by string.
  *  (Ex. "boy", "student" for non-numerical attributes and "salary = 1000", "age >= 18" for numerical attributes)
@@ -31,16 +31,16 @@ int cpabe_vkeygen(unsigned char* pk_path, unsigned char* mk_path, unsigned char*
  *  -1: failure
  */
 
-int cpabe_keygen(unsigned char* pk_path, unsigned char* mk_path, unsigned char* sk_path, int attr_no, ...);
+int cpabe_keygen(char* sk_path, char* pk_path, char* mk_path, int attr_no, ...);
 /*  Purpose:
  *  Generate a secret key with the given attributes with public key and master key
  *  About the key attributes, please refer the following link 
  *  http://acsc.cs.utexas.edu/cpabe/cpabe-keygen.html
  *
  *  Parameters:
+ *  1. sk_path: the path of secret key
  *  1. pk_path: the path of public key
  *  2. mk_path: the path of master key 
- *  3. pk_path: the path of secret key
  *  4. attr_no: the number of attributes
  *  5. ...: a serial of attributes in two forms, non-numerical and numerical, specified by string.
  *  (Ex. "boy", "student" for non-numerical attributes and "salary = 1000", "age >= 18" for numerical attributes)
@@ -50,8 +50,8 @@ int cpabe_keygen(unsigned char* pk_path, unsigned char* mk_path, unsigned char* 
  *  -1: failure
  */
 
-int cpabe_enc(unsigned char* pk_path, unsigned char* pt, unsigned char* policy_str, unsigned char** ct);
-int cpabe_enc_l(unsigned char* pk_path, unsigned char* pt, int pt_len, unsigned char* policy_str, unsigned char** ct);
+int cpabe_enc(char* pk_path, char* pt, char* policy_str, char** ct);
+int cpabe_enc_l(char* pk_path, char* pt, int pt_len, char* policy_str, char** ct);
 /*  Purpose:
  *  Encrypt non-file plaintext into non-file ciphertext with public key and policy using CPABE.  
  *
@@ -67,7 +67,7 @@ int cpabe_enc_l(unsigned char* pk_path, unsigned char* pt, int pt_len, unsigned 
  *  -1: failure
  */
 
-int cpabe_fenc(unsigned char* pk_path, unsigned char* pt_path, unsigned char* policy_str, unsigned char* ct_path);
+int cpabe_fenc(char* pk_path, char* pt_path, char* policy_str, char* ct_path);
 /*  Purpose:
  *  Encrypt file-based plaintext into file-based ciphertext with public key and policy using CPABE.  
  *
@@ -83,7 +83,7 @@ int cpabe_fenc(unsigned char* pk_path, unsigned char* pt_path, unsigned char* po
  *  -1: failed
  */
 
-int cpabe_dec(unsigned char* pk_path, unsigned char* sk_path, unsigned char* ct, unsigned char** pt);
+int cpabe_dec(char* pk_path, char* sk_path, char* ct, char** pt);
 /*  Purpose:
  *  Decrypt non-file ciphertext into non-file plaintext with public key and secret key using CPABE.  
  *
@@ -98,14 +98,15 @@ int cpabe_dec(unsigned char* pk_path, unsigned char* sk_path, unsigned char* ct,
  *  -1: faiiure
  */
 
-int cpabe_fdec(unsigned char* pk_path, unsigned char* sk_path, unsigned char* ct_path);
+int cpabe_fdec(char* pk_path, char* sk_path, char* ct_path, char* pt_path);
 /*  Purpose:
  *  Decrypt file-based ciphertext into file-based plaintext with public key and secret key using CPABE.  
  *
  *  Parameters:
  *  1. pk_path: the path of public key
  *  2. sk_path: the path of secret key
- *  3. ct_path: the path of ciphertext
+ *  3. ct_path: the path of cipher text
+ *  4. pt_path: the patg of plain text
  *
  *  Return:
  *   0: success
