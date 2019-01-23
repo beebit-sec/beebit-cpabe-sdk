@@ -1,6 +1,10 @@
 package tw.edu.au.csie.ucan.beebit;
 
 public class cpabeJNI {
+
+	public static int EXIT_SUCCESS = 0;
+	public static int EXIT_FAILURE = -1;
+
 	public native int setup(String pk_path, String  mk_path);
 	public native int keygen(String pk_path, String mk_path, String sk_path, int attr_no, String... params);
 	public native int vkeygen(String pk_path, String mk_path, String sk_path, int attr_no, String[] params);

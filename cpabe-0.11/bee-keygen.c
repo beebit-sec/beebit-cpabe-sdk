@@ -15,12 +15,6 @@
 	as different numerical values)
 */
 
-//char*  pub_file = 0;
-//char*  msk_file = 0;
-//char** attrs    = 0;
-
-//char*  out_file = "priv_key";
-
 gint comp_string( gconstpointer a, gconstpointer b){
 	return strcmp(a, b);
 }
@@ -40,7 +34,6 @@ int cpabe_keygen(char* priv_name, char* pub_key, char* msk_key, int attribute, .
 	char* msk_file = msk_key;
 	char* out_file = "priv_key";
 
-	//if( !pub_file || !msk_file || !alist ) 是否判斷有無檔案
 	if(!strcmp(priv_name,"default")){
 		out_file = "priv_key";
 	}else{
@@ -108,26 +101,24 @@ int cpabe_vkeygen(char* priv_name, char* pub_key, char* msk_key, int attribute, 
 	char* msk_file = msk_key;
 	char* out_file = "priv_key";
 
-	//if( !pub_file || !msk_file || !alist ) 是否判斷有無檔案
 	if(!strcmp(priv_name,"default")){
 		out_file = "priv_key";
 	}else{
 		out_file = priv_name;
 	}
 
-	//va_list valist;
 	int num;
 
+//<<<<<<< HEAD
 	//va_start(valist,attribute);
+//=======
+//>>>>>>> a7ccea94249b4668139077b6593ee7870a2cbfbb
 	for(num=0;num<attribute;num++){
-		//char *att;
-		//att = va_arg(valist,char*);
 		if(parse_attribute(&alist,argv[num]/*att*/) == -1){
 			return -1;
 		}
 	}
 
-	//va_end(valist);
 	alist = g_slist_sort(alist, comp_string);//排序照英文字母頭
 	n = g_slist_length(alist);
 	char** attrs = malloc((n + 1) * sizeof(char*));

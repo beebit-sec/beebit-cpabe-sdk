@@ -7,7 +7,7 @@ class dec {
 			System.out.printf("Usage: dec [pk] [sk] [ct] [pt]\n");
 			System.out.printf("pk: path to public key\n");
 			System.out.printf("sk: path to secret key\n");
-			System.out.printf("ck: path to encrypted file (cipher text)\n");
+			System.out.printf("ct: path to encrypted file (cipher text)\n");
 			System.out.printf("pt: path to original file (plain text)\n");
 			System.exit(-1);
 		}
