@@ -53,7 +53,7 @@ JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_bee_BeeJNI_fenc
  * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I
  */
 JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_bee_BeeJNI_fdec
-  (JNIEnv *, jobject, jstring, jstring, jstring);
+  (JNIEnv *, jobject, jstring, jstring, jstring, jstring);
 
 #ifdef __cplusplus
 }

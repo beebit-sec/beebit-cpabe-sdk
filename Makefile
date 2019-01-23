@@ -5,6 +5,7 @@ mandir = ${prefix}/share/man
 
 cpabe_dir = ${top_srcdir}/cpabe-0.11
 example_dir = ${top_srcdir}/example
+python_dir = ${top_srcdir}/python
 pbc_dir = ${top_srcdir}/pbc-0.5.14
 bswabe_dir = ${top_srcdir}/libbswabe-0.9
 jni_dir = ${top_srcdir}/jni
@@ -17,6 +18,8 @@ JAVA_PATH = /opt/jdk1.8.0_131
 JAVA_BIN_PATH = ${JAVA_PATH}/bin
 JNI_H_PATH = ${JAVA_PATH}/include
 JNI_OS_H_PATH = ${JAVA_PATH}/include/linux
+
+PYTHON_H_PATH = /usr/include/python2.7
 
 CC = gcc
 CFLAGS  = -O3 -Wall -g -fPIC \
@@ -46,6 +49,14 @@ MANUALS  = $(TARGETS:=.1)
 HTMLMANS = $(MANUALS:.1=.html)
 
 all: $(TARGETS)
+
+python: _pycpabe.so
+
+_pycpabe.so: ${cpabe_dir}/bee-setup.o ${cpabe_dir}/common.o ${cpabe_dir}/bee-enc.o ${cpabe_dir}/policy_lang.o ${cpabe_dir}/bee-keygen.o ${cpabe_dir}/bee-dec.o ${python_dir}/pycpabe_wrap.o
+	$(CC) -shared -o $@ $^ /usr/local/lib/libbswabe.a /usr/local/lib/libpbc.a /usr/local/lib/libgmp.a /usr/local/lib/libglib-2.0.a /usr/local/lib/libssl.a /usr/local/lib/libcrypto.a
+
+${python_dir}/pycpabe_wrap.c: ${python_dir}/pycpabe.i
+	swig -python ${python_dir}/pycpabe.i
 
 jni: libbeebit-cpabe-0.1.so
 	${JAVA_BIN_PATH}/javac ${jni_package_dir}/cpabeJNI.java
@@ -83,7 +94,7 @@ cpabe-encdec:$(example_dir)/cpabe-encdec.o
 	$(CC) -o $(example_dir)/$@ $^ $(LDFLAGS)
 
 %.o: %.c *.h Makefile
-	$(CC) -fPIC -c -o $@ $< $(CFLAGS)
+	$(CC) -fPIC -c -o $@ $< $(CFLAGS) -I${PYTHON_H_PATH}
 
 #libpbc:
 #	$(shell cd ${pbc_dir}; sh configure; make; sudo make install)
@@ -94,10 +105,9 @@ cpabe-encdec:$(example_dir)/cpabe-encdec.o
 clean:
 	rm -f libbeebit-cpabe-0.1.a libbeebit-cpabe.a libbeebit-cpabe-0.1.so libbeebit-cpabe.so
 	rm -f ${example_dir}/cpabe-setup ${example_dir}/cpabe-keygen ${example_dir}/cpabe-enc ${example_dir}/cpabe-dec ${example_dir}/cpabe-encdec ${example_dir}/*.o 
-	rm -f ${example_dir}/pubKey ${example_dir}/mstKey ${example_dir}/secKey* ${example_dir}/data.cpabe
 	rm -f ${jni_dir}/*Key* ${jni_dir}/cpabeJNI.o ${jni_package_dir}/*.class 
-	echo "Hello Bee" > ${example_dir}/data
-	echo "Hello Bee" > ${jni_dir}/data
+	echo "Hello Beebit" > ${example_dir}/data
+	echo "Hello Beebit" > ${jni_dir}/data
 	$(shell cd cpabe-0.11; rm -f *.o)
 
 install:

@@ -16,10 +16,10 @@
 //char* out_file = 0;
 //int   keep     = 0;
 
-unsigned char* policy = 0;
+char* policy = 0;
 
 
-int cpabe_fenc(unsigned char* pk_path, unsigned char* pt_path, unsigned char* policy_str, unsigned char* ct_path){
+int cpabe_fenc(char* pk_path, char* pt_path, char* policy_str, char* ct_path){
 	bswabe_pub_t* pub;
 	bswabe_cph_t* cph;
 	int file_len;
@@ -28,7 +28,7 @@ int cpabe_fenc(unsigned char* pk_path, unsigned char* pt_path, unsigned char* po
 	GByteArray* aes_buf;
 	element_t m;
 
-	unsigned char* out_file = 0;
+	char* out_file = 0;
 	int keep = 0;
 
 	if(!strcmp(pt_path, ct_path)) {return die("%s","Plaintext can not the same as ciphertext.");}
@@ -74,11 +74,11 @@ int cpabe_fenc(unsigned char* pk_path, unsigned char* pt_path, unsigned char* po
 }
 
 
-int cpabe_enc(unsigned char* pk_path, unsigned char* pt, unsigned char* policy_str, unsigned char** ct){
+int cpabe_enc(char* pk_path, char* pt, char* policy_str, char** ct){
 	return cpabe_enc_l(pk_path, pt, strlen(pt), policy_str, ct);
 }
 
-int cpabe_enc_l(unsigned char* pk_path, unsigned char* pt, int pt_len,  unsigned char* policy_str, unsigned char** ct){
+int cpabe_enc_l(char* pk_path, char* pt, int pt_len, char* policy_str, char** ct){
 	bswabe_pub_t* pub;
 	bswabe_cph_t* cph;
 	int file_len;
@@ -115,13 +115,13 @@ int cpabe_enc_l(unsigned char* pk_path, unsigned char* pt, int pt_len,  unsigned
 	element_clear(m);
  
 	int len = aes_buf->len+cph_buf->len+12;
-	unsigned char* cipher = malloc(sizeof(unsigned char)*len);
+	char* cipher = malloc(sizeof(char)*len);
 
-	memcpy(cipher, (unsigned char*)&file_len, 4);
-	memcpy(cipher+4, (unsigned char*)&aes_buf->len, 4);
-	memcpy(cipher+8, (unsigned char*)&cph_buf->len, 4);
-	memcpy(cipher+12, (unsigned char*)aes_buf->data, aes_buf->len);
-	memcpy(cipher+12+aes_buf->len, (unsigned char*)cph_buf->data, cph_buf->len);
+	memcpy(cipher, (char*)&file_len, 4);
+	memcpy(cipher+4, (char*)&aes_buf->len, 4);
+	memcpy(cipher+8, (char*)&cph_buf->len, 4);
+	memcpy(cipher+12, (char*)aes_buf->data, aes_buf->len);
+	memcpy(cipher+12+aes_buf->len, (char*)cph_buf->data, cph_buf->len);
 
 	//cipher->len = file_len;
 	//cipher->aes_buf = (char*)aes_buf->data;

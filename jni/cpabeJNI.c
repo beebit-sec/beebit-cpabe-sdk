@@ -9,26 +9,26 @@ JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_setup
 	int len = (*env)->GetStringLength(env, pk_path);
 	//unsigned char* pk = malloc(sizeof(unsigned char) * len);
     	//unsigned char* pk = (*env)->GetByteArrayRegion(env, pk_path, 0);
-	unsigned char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
+	char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
 	len = (*env)->GetArrayLength(env, mk_path);
 	//unsigned char* mk = malloc(sizeof(unsigned char) * len);
     	//(*env)->GetByteArrayRegion(env, mk_path, 0, len, mk);
-	unsigned char *mk = (*env)->GetStringUTFChars(env, mk_path, 0);
+	char *mk = (*env)->GetStringUTFChars(env, mk_path, 0);
 
 	return cpabe_setup(pk, mk);
 }
 
 JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_vkeygen
-	(JNIEnv * env, jobject obj, jstring pk_path, jstring mk_path, jstring sk_path, jint attr_no, jobjectArray params) {
-	return Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_keygen(env, obj, pk_path, mk_path, sk_path, attr_no, params);
+	(JNIEnv * env, jobject obj, jstring sk_path, jstring pk_path, jstring mk_path, jint attr_no, jobjectArray params) {
+	return Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_keygen(env, obj, sk_path, pk_path, mk_path, attr_no, params);
 }
 
 JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_keygen
-	(JNIEnv * env, jobject obj, jstring pk_path, jstring mk_path, jstring sk_path, jint attr_no, jobjectArray params) {
+	(JNIEnv * env, jobject obj, jstring sk_path, jstring pk_path, jstring mk_path, jint attr_no, jobjectArray params) {
 
-	unsigned char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
-	unsigned char *mk = (*env)->GetStringUTFChars(env, mk_path, 0);
-	unsigned char *sk = (*env)->GetStringUTFChars(env, sk_path, 0);
+	char *sk = (*env)->GetStringUTFChars(env, sk_path, 0);
+	char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
+	char *mk = (*env)->GetStringUTFChars(env, mk_path, 0);
 
 	int argc = (int) attr_no;
 
@@ -50,18 +50,18 @@ JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_keygen
 
 JNIEXPORT jbyteArray JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_enc
 	(JNIEnv * env, jobject obj, jstring pk_path, jbyteArray pt_str, jstring policy_str) {
-	unsigned char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
+	char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
 	jboolean isCopy;
 	jbyte* pt = (*env)->GetByteArrayElements(env, pt_str, &isCopy); 
 	int pt_len = (*env)->GetArrayLength(env, pt_str);
 	//unsigned char *pt = (*env)->GetStringUTFChars(env, pt_str, 0);
-	unsigned char *policy = (*env)->GetStringUTFChars(env, policy_str, 0);
+	char *policy = (*env)->GetStringUTFChars(env, policy_str, 0);
 
-	unsigned char* ct;
+	char* ct;
 
 	int len = 0;
 
-	if((len = cpabe_enc_l(pk, (unsigned char*)pt, pt_len, policy, &ct)) == -1){
+	if((len = cpabe_enc_l(pk, (char*)pt, pt_len, policy, &ct)) == -1){
 		return NULL;
 	}
 	jbyteArray bytes = (*env)->NewByteArray(env, len);
@@ -73,16 +73,16 @@ JNIEXPORT jbyteArray JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_enc
 
 JNIEXPORT jbyteArray JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_dec
 	(JNIEnv * env, jobject obj, jstring pk_path, jstring sk_path, jbyteArray ct_str) {
-	unsigned char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
-	unsigned char *sk = (*env)->GetStringUTFChars(env, sk_path, 0);
+	char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
+	char *sk = (*env)->GetStringUTFChars(env, sk_path, 0);
 	jboolean isCopy;
 	jbyte* ct = (*env)->GetByteArrayElements(env, ct_str, &isCopy); 
 
-	unsigned char* pt;
+	char* pt;
 
 	int len = 0;
 
-	if((len = cpabe_dec(pk, sk, (unsigned char*)ct, &pt)) == -1){
+	if((len = cpabe_dec(pk, sk, (char*)ct, &pt)) == -1){
 		return NULL;
 	}
 
@@ -96,19 +96,20 @@ JNIEXPORT jbyteArray JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_dec
 
 JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_fenc
 	(JNIEnv * env, jobject obj, jstring pk_path, jstring pt_path, jstring policy_str, jstring ct_path) {
-	unsigned char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
-	unsigned char *pt = (*env)->GetStringUTFChars(env, pt_path, 0);
-	unsigned char *policy = (*env)->GetStringUTFChars(env, policy_str, 0);
-	unsigned char *ct = (*env)->GetStringUTFChars(env, ct_path, 0);
+	char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
+	char *pt = (*env)->GetStringUTFChars(env, pt_path, 0);
+	char *policy = (*env)->GetStringUTFChars(env, policy_str, 0);
+	char *ct = (*env)->GetStringUTFChars(env, ct_path, 0);
 
 	return cpabe_fenc(pk, pt, policy, ct);
 }
 
 JNIEXPORT jint JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_fdec
-	(JNIEnv * env, jobject obj, jstring pk_path, jstring sk_path, jstring ct_path) {
-	unsigned char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
-	unsigned char *sk = (*env)->GetStringUTFChars(env, sk_path, 0);
-	unsigned char *ct = (*env)->GetStringUTFChars(env, ct_path, 0);
+	(JNIEnv * env, jobject obj, jstring pk_path, jstring sk_path, jstring ct_path, jstring pt_path) {
+	char *pk = (*env)->GetStringUTFChars(env, pk_path, 0);
+	char *sk = (*env)->GetStringUTFChars(env, sk_path, 0);
+	char *ct = (*env)->GetStringUTFChars(env, ct_path, 0);
+	char *pt = (*env)->GetStringUTFChars(env, pt_path, 0);
 
-	return cpabe_fdec(pk, sk, ct);
+	return cpabe_fdec(pk, sk, ct, pt);
 }
