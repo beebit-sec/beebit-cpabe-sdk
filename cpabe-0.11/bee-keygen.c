@@ -108,11 +108,6 @@ int cpabe_vkeygen(char* priv_name, char* pub_key, char* msk_key, int attribute, 
 	}
 
 	int num;
-
-//<<<<<<< HEAD
-	//va_start(valist,attribute);
-//=======
-//>>>>>>> a7ccea94249b4668139077b6593ee7870a2cbfbb
 	for(num=0;num<attribute;num++){
 		if(parse_attribute(&alist,argv[num]/*att*/) == -1){
 			return -1;
