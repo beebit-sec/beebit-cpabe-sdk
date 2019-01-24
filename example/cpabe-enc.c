@@ -17,12 +17,11 @@ int main(int argc, char** argv) {
 	char *pt = argv[2];
 	char *ap = argv[3];
 	char *ct = argv[4];
-	
+
 	if(cpabe_fenc(pk, pt, ap, ct) == -1){
 		fprintf(stderr, "Encrypt failed!\n");
 		return EXIT_FAILURE;
 	}
-
 
 	fprintf(stderr, "Encrypt success!\n");
 	fprintf(stderr, "File (%s) encrypted to file (%s) with policy (%s).\n", pt, ct, ap);

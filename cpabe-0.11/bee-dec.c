@@ -94,7 +94,6 @@ cpabebuf* cpabe_dec_b(char* pk_path, char* sk_path, char* ct, cpabebuf* buf) {
 	return buf;
 }
 
-
 int cpabe_dec(char* pk_path, char* sk_path, char* ct, char** pt){
 
 	bswabe_pub_t* pub;
