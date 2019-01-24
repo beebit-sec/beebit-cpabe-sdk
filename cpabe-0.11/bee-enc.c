@@ -73,6 +73,15 @@ int cpabe_fenc(char* pk_path, char* pt_path, char* policy_str, char* ct_path){
 	return 0;
 }
 
+cpabebuf* cpabe_enc_b(char* pk_path, char* pt, int pt_len, char* policy_str, cpabebuf* buf){
+	int len = -1;
+	len = cpabe_enc_l(pk_path, pt, pt_len, policy_str, &(buf->data));
+	if(len == -1) {
+		return NULL;
+	}
+	buf->len = len;
+	return buf;
+}
 
 int cpabe_enc(char* pk_path, char* pt, char* policy_str, char** ct){
 	return cpabe_enc_l(pk_path, pt, strlen(pt), policy_str, ct);

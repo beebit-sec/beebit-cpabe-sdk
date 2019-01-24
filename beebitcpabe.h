@@ -1,3 +1,11 @@
+#ifndef BEEBITCPABE_H
+#define BEEBITCPABE_H
+
+#include "cpabebuf.h"
+
+cpabebuf* cpabe_enc_b(char* pk_path, char* pt, int pt_len, char* policy_str, cpabebuf* buf);
+cpabebuf* cpabe_dec_b(char* pk_path, char* sk_path, char* ct, cpabebuf* buf);
+
 int cpabe_setup(char* pk_path, char* mk_path);
 /*  Purpose:
  *  Generate system parameters, a public key, and a master key
@@ -51,7 +59,7 @@ int cpabe_keygen(char* sk_path, char* pk_path, char* mk_path, int attr_no, ...);
  */
 
 int cpabe_enc(char* pk_path, char* pt, char* policy_str, char** ct);
-int cpabe_enc_l(char* pk_path, char* pt, int pt_len, char* policy_str, char** ct);
+int cpabe_enc_l(char* pk_path, char* pt, int pt_length, char* policy_str, char** ct);
 /*  Purpose:
  *  Encrypt non-file plaintext into non-file ciphertext with public key and policy using CPABE.  
  *
@@ -112,3 +120,4 @@ int cpabe_fdec(char* pk_path, char* sk_path, char* ct_path, char* pt_path);
  *   0: success
  *  -1: failure
  */
+#endif

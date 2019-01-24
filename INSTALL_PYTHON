@@ -1,0 +1,41 @@
+A. INSTALLATION
+
+1. Install glib
+./configure --prefix=/usr/local --enable-static --with-pic
+make
+sudo make install
+
+2. Install gmp
+./configure --prefix=/usr/local --enable-static --with-pic
+make
+sudo make install
+
+3. Install openssl
+./config
+make CC="gcc -fPIC"
+sudo cp libcrypto.a /usr/local/lib
+sudo cp libssl.a /usr/local/lib
+
+4. Install pbc
+cd pbc-0.5.14
+./configure --prefix=/usr/local --with-pic
+make
+sudo make install
+
+5. Install libbswabe
+cd libbswabe-0.9
+./configure --prefix=/usr/local
+make CC="gcc -fPIC"
+sudo make install
+
+Step 6. Build shared library
+make clean
+make python
+
+II. PYTHON TESTING
+cd python
+python setup.py
+python keygen.py
+python enc.py
+python dec.py
+python encdec.py

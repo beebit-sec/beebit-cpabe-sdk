@@ -41,7 +41,7 @@ LDFLAGS = -L. -lbeebit-cpabe \
 
 DISTNAME = beebit-cpabe-0.1
 
-TARGETS  = libbeebit-cpabe-0.1.a cpabe-setup cpabe-keygen cpabe-enc cpabe-dec cpabe-encdec
+TARGETS  = libbeebit-cpabe-0.1.a cpabe-setup cpabe-keygen cpabe-enc cpabe-dec cpabe-encdec cpabe-encdecb
 
 DEVTARGS = test-lang TAGS
 
@@ -51,12 +51,13 @@ HTMLMANS = $(MANUALS:.1=.html)
 all: $(TARGETS)
 
 python: _pycpabe.so
+	cp _pycpabe.so ${python_dir}
 
-_pycpabe.so: ${cpabe_dir}/bee-setup.o ${cpabe_dir}/common.o ${cpabe_dir}/bee-enc.o ${cpabe_dir}/policy_lang.o ${cpabe_dir}/bee-keygen.o ${cpabe_dir}/bee-dec.o ${python_dir}/pycpabe_wrap.o
+_pycpabe.so: ${cpabe_dir}/bee-setup.o ${cpabe_dir}/common.o ${cpabe_dir}/bee-enc.o ${cpabe_dir}/policy_lang.o ${cpabe_dir}/bee-keygen.o ${cpabe_dir}/bee-dec.o ${python_dir}/pycpabe_wrap.o ${cpabe_dir}/cpabebuf.o
 	$(CC) -shared -o $@ $^ /usr/local/lib/libbswabe.a /usr/local/lib/libpbc.a /usr/local/lib/libgmp.a /usr/local/lib/libglib-2.0.a /usr/local/lib/libssl.a /usr/local/lib/libcrypto.a
 
 ${python_dir}/pycpabe_wrap.c: ${python_dir}/pycpabe.i
-	swig -python ${python_dir}/pycpabe.i
+	swig -python -builtin ${python_dir}/pycpabe.i
 
 jni: libbeebit-cpabe-0.1.so
 	${JAVA_BIN_PATH}/javac ${jni_package_dir}/cpabeJNI.java
@@ -71,7 +72,7 @@ libbeebit-cpabe-0.1.so: ${cpabe_dir}/bee-setup.o ${cpabe_dir}/common.o ${cpabe_d
 	ln -f -s $@ libbeebit-cpabe.so
 
 # user-level compilation
-libbeebit-cpabe-0.1.a: ${cpabe_dir}/bee-setup.o ${cpabe_dir}/common.o ${cpabe_dir}/bee-enc.o ${cpabe_dir}/policy_lang.o ${cpabe_dir}/bee-keygen.o ${cpabe_dir}/bee-dec.o
+libbeebit-cpabe-0.1.a: ${cpabe_dir}/bee-setup.o ${cpabe_dir}/common.o ${cpabe_dir}/bee-enc.o ${cpabe_dir}/policy_lang.o ${cpabe_dir}/bee-keygen.o ${cpabe_dir}/bee-dec.o ${cpabe_dir}/cpabebuf.o
 #	$(CC) -c $^ $(CFLAGS)
 	$(AR) rcs -o $@ $^ 
 	ln -f -s $@ libbeebit-cpabe.a
@@ -92,6 +93,8 @@ cpabe-dec:$(example_dir)/cpabe-dec.o
 
 cpabe-encdec:$(example_dir)/cpabe-encdec.o
 	$(CC) -o $(example_dir)/$@ $^ $(LDFLAGS)
+cpabe-encdecb:$(example_dir)/cpabe-encdecb.o
+	$(CC) -o $(example_dir)/$@ $^ $(LDFLAGS)
 
 %.o: %.c *.h Makefile
 	$(CC) -fPIC -c -o $@ $< $(CFLAGS) -I${PYTHON_H_PATH}
@@ -103,11 +106,13 @@ cpabe-encdec:$(example_dir)/cpabe-encdec.o
 #	$(shell cd ${bswabe_dir}; sh configure; make; sudo make install)
 
 clean:
-	rm -f libbeebit-cpabe-0.1.a libbeebit-cpabe.a libbeebit-cpabe-0.1.so libbeebit-cpabe.so
-	rm -f ${example_dir}/cpabe-setup ${example_dir}/cpabe-keygen ${example_dir}/cpabe-enc ${example_dir}/cpabe-dec ${example_dir}/cpabe-encdec ${example_dir}/*.o 
+	rm -f libbeebit-cpabe-0.1.a libbeebit-cpabe.a libbeebit-cpabe-0.1.so libbeebit-cpabe.so _pycpabe.so
+	rm -f ${example_dir}/cpabe-setup ${example_dir}/cpabe-keygen ${example_dir}/cpabe-enc ${example_dir}/cpabe-dec ${example_dir}/cpabe-encdec ${example_dir}/cpabe-encdecb ${example_dir}/*.o 
 	rm -f ${jni_dir}/*Key* ${jni_dir}/cpabeJNI.o ${jni_package_dir}/*.class 
+	rm -f ${python_dir}/*.pyc ${python_dir}/*.o ${python_dir}/*.c ${python_dir}/pycpabe.py ${python_dir}/_pycpabe.so
 	echo "Hello Beebit" > ${example_dir}/data
 	echo "Hello Beebit" > ${jni_dir}/data
+	echo "Hello Beebit" > ${python_dir}/data
 	$(shell cd cpabe-0.11; rm -f *.o)
 
 install:

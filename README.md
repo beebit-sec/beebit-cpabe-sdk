@@ -13,6 +13,8 @@ For C developers, refer INSTALL_C
 
 For JAVA developers, refer INSTALL_JAVA
 
+For PYTHON developers, refer INSTALL_PYTHON
+
 For API reference, refer beebitcpabe.h
 
 ## REFERENCE

@@ -84,6 +84,16 @@ int cpabe_fdec(char* pk_path, char* sk_path, char* ct_path, char* pt_path){
 	return 0;
 }
 
+cpabebuf* cpabe_dec_b(char* pk_path, char* sk_path, char* ct, cpabebuf* buf) {
+	int len = -1;
+	len = cpabe_dec(pk_path, sk_path, ct, &(buf->data));
+	if(len == -1) {
+		return NULL;
+	}
+	buf->len = len;
+	return buf;
+}
+
 int cpabe_dec(char* pk_path, char* sk_path, char* ct, char** pt){
 
 	bswabe_pub_t* pub;
