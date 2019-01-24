@@ -6,7 +6,7 @@
 int main(int argc, char** argv) {
 
 	if(argc < 4) {
-		fprintf(stderr, "Usage: cpabe-encdec [pk] [sk] [ap]\n");
+		fprintf(stderr, "Usage: cpabe-encdecb [pk] [sk] [ap]\n");
 		fprintf(stderr, "pk: path to public key\n");
 		fprintf(stderr, "sk: path to secret key\n");
 		fprintf(stderr, "ap: access policy\n");
@@ -18,32 +18,32 @@ int main(int argc, char** argv) {
 	char* ap = argv[3];
 
 	char pt[256];
-	char* ct = NULL;
 
 	fprintf(stderr, "Plain Text:\n");
 	scanf("%[^\n]s)", pt);
 	
 	// ENCRYPTION PROCESS
-	int len = 0;
-	len = cpabe_enc(pk, pt, ap, &ct);
-	if(len == -1){
+	cpabebuf* ctb = new_cpabebuf();
+	cpabe_enc_b(pk, pt, strlen(pt), ap, ctb);
+	if(ctb == NULL) {
 		fprintf(stderr, "Encrypt failed!\n");
 		return EXIT_FAILURE;
 	}
 	fprintf(stderr, "Encrypt success!\n");
-	fprintf(stderr, "[ct len = %d])\n", len);
+	fprintf(stderr, "[ct len = %d])\n", ctb->len);
 
-	// DECRYPTION PROCESS
-	char* result = NULL;
-	
-	len = cpabe_dec(pk, sk, ct, &result);
-	if(len == -1){
+	cpabebuf* ptb = new_cpabebuf();
+	ptb = cpabe_dec_b(pk, sk, ctb->data, ptb);
+	if(ptb == NULL) {
 		fprintf(stderr, "Decrypt failed!\n");
 		return EXIT_FAILURE;
+
 	}
-	result[len] = '\0';	
 	fprintf(stderr, "Decrypt success!\n");
-	fprintf(stderr, "%s [pt len = %d])\n", result, len);
+	fprintf(stderr, "%s [pt len = %d])\n", ptb->data, ptb->len);
+	
+	free_cpabebuf(ctb);
+	free_cpabebuf(ptb);
 
 	return EXIT_SUCCESS;
 }
