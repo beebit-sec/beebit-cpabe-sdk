@@ -36,9 +36,9 @@ The implementation of **beebit-cpabe-sdk** is based on the following open source
 ## Installation
 The **beebit-cpabe-sdk** current supports three languages, native C, Java, and Python.
 
-1. [Native C](https://github.com/beebit-sec/beebit-cpabe-sdk/blob/master/INSTALL_C.md)
-2. [Java Wrapper](https://github.com/beebit-sec/beebit-cpabe-sdk/blob/master/INSTALL_JAVA.md) / JNI [2]
-3. [Python Wrapper](https://github.com/beebit-sec/beebit-cpabe-sdk/blob/master/INSTALL_PYTHON.md) / SWIG [3]
+1. [Native C](INSTALL_C.md)
+2. [Java Wrapper](INSTALL_JAVA.md) / JNI [2]
+3. [Python Wrapper](INSTALL_PYTHON.md) / SWIG [3]
 
 ## Reference
 [1] John Bethencourt ; Amit Sahai ; Brent Waters, "Ciphertext-Policy Attribute-Based Encryption,"  2007 IEEE Symposium on Security and Privacy (SP '07).

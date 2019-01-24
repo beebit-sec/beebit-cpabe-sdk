@@ -11,7 +11,7 @@ make java
 Chagne to java directory
 ~~~bash
 cd java
-~~
+~~~
 
 ### Setup
 **Setup** generates the public key and the master key

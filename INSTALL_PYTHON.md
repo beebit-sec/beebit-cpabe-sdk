@@ -11,7 +11,7 @@ make python
 Chagne to example directory
 ~~~bash
 cd python
-~~
+~~~
 
 ### Setup
 **Setup** generates the public key and the master key

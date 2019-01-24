@@ -11,7 +11,7 @@ sudo make install
 Chagne to example directory
 ~~~bash
 cd example
-~~
+~~~
 
 ### Setup
 **Setup** generates the public key and the master key
