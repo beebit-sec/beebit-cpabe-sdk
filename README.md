@@ -1,21 +1,46 @@
-# beebit-cpabe-sdk (v0.1)
-Project **BeeBit** SDK provides a set of modules for developers who attempt to secure data communication. 
+# beebit-cpabe-sdk (v0.2)
+The **Beebit** project provides a set of modules for developers who attempt to secure data communication.
 
-Module **beebit-cpabe-sdk** implements a novel cryptosystem called Ciphertext-Policy Attribute-Based Encryption (**CP-ABE**). CP-ABE is an one-to-many asymmetric cryptosystem with supporting fine-grained access control. Data publisher can encrypt data and embed access policy using the publc key. Each data subscriber has his/her own secret key with personal attributes. Only the data subscribers, whose attributes meets the access policy, can decrpy data using their secret keys. We believe that CP-ABE is suitable for most Internet of Things (IoT) applications.
+The **beebit-cpabe-sdk** module implements a novel cryptosystem called Ciphertext-Policy Attribute-Based Encryption (**CP-ABE**)[1]. CP-ABE is an one-to-many asymmetric cryptosystem with supporting fine-grained access control. Data owner can encrypt plaintext to ciphertext with embedded access policy. Each data user has one secret key with personal attributes. Only the secret keys with attributes, that satisfy the access policy, can decrypt ciphertext to plaintext. We believe that CP-ABE is suitable in cloud and Internet of Things (IoT) environment.
 
-The development of **beebit-cpabe-sdk** is based on the following open source contributions.
+The implementation of **beebit-cpabe-sdk** is based on the following open source projects.
 1. PBC Library: the pairing-based cryptography library from Standord University. [Link](https://crypto.stanford.edu/pbc/)
 2. libbswabe: a library implementing the core crypto operations of CP-ABE. [Link](http://acsc.cs.utexas.edu/cpabe/)
 3. cpabe: a higher level functions and user interface of CP-ABE. [Link](http://acsc.cs.utexas.edu/cpabe/)
 
-## A. INSTALLATION
-For C developers, refer INSTALL_C
+## Environment
+- **OS**: Linux (Ubuntu is the test system)
+- **Tools**:
+	- flex: <code>sudo apt install flex</code>
+	- bison: <code>sudo apt install bison</code>
+- **Library**:
+	- glib (>2.0.0): <code>sudo apt install libglib2.0-dev</code>
+	- gmp (>4.0.0): <code>sudo apt install libgmp-dev</code>
+	- ssl: <code>sudo apt install libssl-dev</code>
+	- glib-2.0: <code>sudo apt install libglib2.0-dev</code>
+- **Library pbc**:
+	- Download source from [https://crypto.stanford.edu/pbc/](https://crypto.stanford.edu/pbc/)
+	- Unpack source tarball (eg., <code>tar zxvf pbc-0.5.14.tar.gz</code>)
+	- Build source
+		- <code>./configure --prefix=/usr/local --with-pic</code> 
+		- <code>make</code> 
+		- <code>sudo make install</code> 
+- **Library bswabe**:
+	- Download source from [http://acsc.cs.utexas.edu/cpabe/](http://acsc.cs.utexas.edu/cpabe/)
+	- Unpack source tarball (eg., <code>tar zxvf libbswabe-0.9.tar.gz</code>)
+	- Build source
+		- <code>./configure --prefix=/usr/local</code> 
+		- <code>make CC="gcc -fPIC"</code> 
+		- <code>sudo make install</code> 
 
-For JAVA developers, refer INSTALL_JAVA
+## Installation
+The **beebit-cpabe-sdk** current supports three languages, native C, Java, and Python.
 
-For PYTHON developers, refer INSTALL_PYTHON
+1. [Native C](INSTALL_C.md)
+2. [Java Wrapper](INSTALL_JAVA.md) / JNI [2]
+3. [Python Wrapper](INSTALL_PYTHON.md) / SWIG [3]
 
-For API reference, refer beebitcpabe.h
-
-## REFERENCE
-[1] http://blog.csdn.net/huifeideyema/article/details/51695231 
+## Reference
+1. John Bethencourt ; Amit Sahai ; Brent Waters, "Ciphertext-Policy Attribute-Based Encryption,"  2007 IEEE Symposium on Security and Privacy (SP '07).
+2. https://docs.oracle.com/javase/8/docs/technotes/guides/jni/
+3. http://www.swig.org/
