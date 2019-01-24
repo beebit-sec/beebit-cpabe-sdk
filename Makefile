@@ -8,13 +8,13 @@ example_dir = ${top_srcdir}/example
 python_dir = ${top_srcdir}/python
 pbc_dir = ${top_srcdir}/pbc-0.5.14
 bswabe_dir = ${top_srcdir}/libbswabe-0.9
-jni_dir = ${top_srcdir}/jni
-jni_package_dir = ${jni_dir}/tw/edu/au/csie/ucan/beebit
+java_dir = ${top_srcdir}/java
+java_package_dir = ${java_dir}/tw/edu/au/csie/ucan/beebit
 glib_dir = ${top_srcdir}/glib-2.25.2
 gmp_dir = ${top_srcdir}/gmp-6.1.2
 openssl_dir = ${top_srcdir}/openssl-1.0.2l
 
-JAVA_PATH = /opt/jdk1.8.0_131
+JAVA_PATH = /usr/lib/jvm/java-11-openjdk-amd64
 JAVA_BIN_PATH = ${JAVA_PATH}/bin
 JNI_H_PATH = ${JAVA_PATH}/include
 JNI_OS_H_PATH = ${JAVA_PATH}/include/linux
@@ -41,7 +41,7 @@ LDFLAGS = -L. -lbeebit-cpabe \
 
 DISTNAME = beebit-cpabe-0.1
 
-TARGETS  = libbeebit-cpabe-0.1.a cpabe-setup cpabe-keygen cpabe-enc cpabe-dec cpabe-encdec cpabe-encdecb
+TARGETS  = libbeebit-cpabe-0.1.a setup keygen enc dec encdec encdecb
 
 DEVTARGS = test-lang TAGS
 
@@ -54,21 +54,23 @@ python: _pycpabe.so
 	cp _pycpabe.so ${python_dir}
 
 _pycpabe.so: ${cpabe_dir}/bee-setup.o ${cpabe_dir}/common.o ${cpabe_dir}/bee-enc.o ${cpabe_dir}/policy_lang.o ${cpabe_dir}/bee-keygen.o ${cpabe_dir}/bee-dec.o ${python_dir}/pycpabe_wrap.o ${cpabe_dir}/cpabebuf.o
-	$(CC) -shared -o $@ $^ /usr/local/lib/libbswabe.a /usr/local/lib/libpbc.a /usr/local/lib/libgmp.a /usr/local/lib/libglib-2.0.a /usr/local/lib/libssl.a /usr/local/lib/libcrypto.a
+	#$(CC) -shared -o $@ $^ /usr/local/lib/libbswabe.a /usr/local/lib/libpbc.a /usr/local/lib/libgmp.a /usr/local/lib/libglib-2.0.a /usr/local/lib/libssl.a /usr/local/lib/libcrypto.a
+	$(CC) -shared -o $@ $^ /usr/local/lib/libbswabe.a /usr/local/lib/libpbc.a -lgmp -lglib-2.0 -lcrypto
 
 ${python_dir}/pycpabe_wrap.c: ${python_dir}/pycpabe.i
 	swig -python -builtin ${python_dir}/pycpabe.i
 
-jni: libbeebit-cpabe-0.1.so
-	${JAVA_BIN_PATH}/javac ${jni_package_dir}/cpabeJNI.java
-	${JAVA_BIN_PATH}/javac -cp ${jni_dir} ${jni_package_dir}/setup.java
-	${JAVA_BIN_PATH}/javac -cp ${jni_dir} ${jni_package_dir}/keygen.java
-	${JAVA_BIN_PATH}/javac -cp ${jni_dir} ${jni_package_dir}/enc.java
-	${JAVA_BIN_PATH}/javac -cp ${jni_dir} ${jni_package_dir}/dec.java
-	${JAVA_BIN_PATH}/javac -cp ${jni_dir} ${jni_package_dir}/encdec.java
+java: libbeebit-cpabe-0.1.so
+	${JAVA_BIN_PATH}/javac ${java_package_dir}/cpabeJNI.java
+	${JAVA_BIN_PATH}/javac -cp ${java_dir} ${java_package_dir}/setup.java
+	${JAVA_BIN_PATH}/javac -cp ${java_dir} ${java_package_dir}/keygen.java
+	${JAVA_BIN_PATH}/javac -cp ${java_dir} ${java_package_dir}/enc.java
+	${JAVA_BIN_PATH}/javac -cp ${java_dir} ${java_package_dir}/dec.java
+	${JAVA_BIN_PATH}/javac -cp ${java_dir} ${java_package_dir}/encdec.java
 
-libbeebit-cpabe-0.1.so: ${cpabe_dir}/bee-setup.o ${cpabe_dir}/common.o ${cpabe_dir}/bee-enc.o ${cpabe_dir}/policy_lang.o ${cpabe_dir}/bee-keygen.o ${cpabe_dir}/bee-dec.o ${jni_dir}/cpabeJNI.o
-	$(CC) -shared -o $@ $^ /usr/local/lib/libbswabe.a /usr/local/lib/libpbc.a /usr/local/lib/libgmp.a /usr/local/lib/libglib-2.0.a /usr/local/lib/libssl.a /usr/local/lib/libcrypto.a
+libbeebit-cpabe-0.1.so: ${cpabe_dir}/bee-setup.o ${cpabe_dir}/common.o ${cpabe_dir}/bee-enc.o ${cpabe_dir}/policy_lang.o ${cpabe_dir}/bee-keygen.o ${cpabe_dir}/bee-dec.o ${java_dir}/cpabeJNI.o
+	#$(CC) -shared -o $@ $^ /usr/local/lib/libbswabe.a /usr/local/lib/libpbc.a /usr/local/lib/libgmp.a /usr/local/lib/libglib-2.0.a /usr/local/lib/libssl.a /usr/local/lib/libcrypto.a
+	$(CC) -shared -o $@ $^ /usr/local/lib/libbswabe.a /usr/local/lib/libpbc.a -lgmp -lglib-2.0 -lcrypto
 	ln -f -s $@ libbeebit-cpabe.so
 
 # user-level compilation
@@ -79,21 +81,20 @@ libbeebit-cpabe-0.1.a: ${cpabe_dir}/bee-setup.o ${cpabe_dir}/common.o ${cpabe_di
 
 #setup.o common.o enc.o policy_lang.o keygen.o dec.
 
-cpabe-setup:$(example_dir)/cpabe-setup.o 
+setup:$(example_dir)/setup.o 
 	$(CC) -o $(example_dir)/$@ $^ $(LDFLAGS)
 
-cpabe-keygen:$(example_dir)/cpabe-keygen.o 
+keygen:$(example_dir)/keygen.o 
 	$(CC) -o $(example_dir)/$@ $^ $(LDFLAGS)
 
-cpabe-enc:$(example_dir)/cpabe-enc.o
+enc:$(example_dir)/enc.o
 	$(CC) -o $(example_dir)/$@ $^ $(LDFLAGS)
 
-cpabe-dec:$(example_dir)/cpabe-dec.o
+dec:$(example_dir)/dec.o
 	$(CC) -o $(example_dir)/$@ $^ $(LDFLAGS)
-
-cpabe-encdec:$(example_dir)/cpabe-encdec.o
+encdec:$(example_dir)/encdec.o
 	$(CC) -o $(example_dir)/$@ $^ $(LDFLAGS)
-cpabe-encdecb:$(example_dir)/cpabe-encdecb.o
+encdecb:$(example_dir)/encdecb.o
 	$(CC) -o $(example_dir)/$@ $^ $(LDFLAGS)
 
 %.o: %.c *.h Makefile
@@ -107,11 +108,11 @@ cpabe-encdecb:$(example_dir)/cpabe-encdecb.o
 
 clean:
 	rm -f libbeebit-cpabe-0.1.a libbeebit-cpabe.a libbeebit-cpabe-0.1.so libbeebit-cpabe.so _pycpabe.so
-	rm -f ${example_dir}/cpabe-setup ${example_dir}/cpabe-keygen ${example_dir}/cpabe-enc ${example_dir}/cpabe-dec ${example_dir}/cpabe-encdec ${example_dir}/cpabe-encdecb ${example_dir}/*.o 
-	rm -f ${jni_dir}/*Key* ${jni_dir}/cpabeJNI.o ${jni_package_dir}/*.class 
+	rm -f ${example_dir}/setup ${example_dir}/keygen ${example_dir}/enc ${example_dir}/dec ${example_dir}/encdec ${example_dir}/encdecb ${example_dir}/*.o 
+	rm -f ${java_dir}/cpabeJNI.o ${java_package_dir}/*.class 
 	rm -f ${python_dir}/*.pyc ${python_dir}/*.o ${python_dir}/*.c ${python_dir}/pycpabe.py ${python_dir}/_pycpabe.so
 	echo "Hello Beebit" > ${example_dir}/data
-	echo "Hello Beebit" > ${jni_dir}/data
+	echo "Hello Beebit" > ${java_dir}/data
 	echo "Hello Beebit" > ${python_dir}/data
 	$(shell cd cpabe-0.11; rm -f *.o)
 
