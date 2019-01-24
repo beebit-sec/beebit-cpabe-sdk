@@ -41,6 +41,6 @@ The **beebit-cpabe-sdk** current supports three languages, native C, Java, and P
 3. [Python Wrapper](INSTALL_PYTHON.md) / SWIG [3]
 
 ## Reference
-[1] John Bethencourt ; Amit Sahai ; Brent Waters, "Ciphertext-Policy Attribute-Based Encryption,"  2007 IEEE Symposium on Security and Privacy (SP '07).
-[2] https://docs.oracle.com/javase/8/docs/technotes/guides/jni/
-[3] http://www.swig.org/
+1. John Bethencourt ; Amit Sahai ; Brent Waters, "Ciphertext-Policy Attribute-Based Encryption,"  2007 IEEE Symposium on Security and Privacy (SP '07).
+2. https://docs.oracle.com/javase/8/docs/technotes/guides/jni/
+3. http://www.swig.org/
