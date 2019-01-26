@@ -18,7 +18,6 @@
 
 char* policy = 0;
 
-
 int cpabe_fenc(char* pk_path, char* pt_path, char* policy_str, char* ct_path){
 	bswabe_pub_t* pub;
 	bswabe_cph_t* cph;

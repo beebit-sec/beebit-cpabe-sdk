@@ -119,11 +119,13 @@ clean:
 	$(shell cd cpabe-0.11; rm -f *.o)
 
 install:
-	sudo cp libbeebit-cpabe-0.1.a /usr/local/lib
-	sudo ln -f -s /usr/local/lib/libbeebit-cpabe-0.1.a /usr/local/lib/libbeebit-cpabe.a
-	sudo cp beebitcpabe.h /usr/local/include
+	cp libbeebit-cpabe-0.1.a /usr/local/lib
+	ln -f -s /usr/local/lib/libbeebit-cpabe-0.1.a /usr/local/lib/libbeebit-cpabe.a
+	cp beebitcpabe.h /usr/local/include
+	cp cpabebuf.h /usr/local/include
 
 uninstall:
-	sudo rm /usr/local/lib/libbeebit-cpabe-0.1.a
-	sudo rm /usr/local/lib/libbeebit-cpabe.a
-	sudo rm /usr/local/include/beebitcpabe.h
+	rm /usr/local/lib/libbeebit-cpabe-0.1.a
+	rm /usr/local/lib/libbeebit-cpabe.a
+	rm /usr/local/include/beebitcpabe.h
+	rm /usr/local/include/cpabebuf.h
