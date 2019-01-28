@@ -84,9 +84,9 @@ int cpabe_fdec(char* pk_path, char* sk_path, char* ct_path, char* pt_path){
 	return 0;
 }
 
-cpabebuf* cpabe_dec_b(char* pk_path, char* sk_path, char* ct, cpabebuf* buf) {
+cpabebuf* cpabe_dec_b(char* pk_path, char* sk_path, char* ct, int ct_len, cpabebuf* buf) {
 	int len = -1;
-	len = cpabe_dec(pk_path, sk_path, ct, &(buf->data));
+	len = cpabe_dec(pk_path, sk_path, ct, ct_len, &(buf->data));
 	if(len == -1) {
 		return NULL;
 	}
@@ -94,7 +94,7 @@ cpabebuf* cpabe_dec_b(char* pk_path, char* sk_path, char* ct, cpabebuf* buf) {
 	return buf;
 }
 
-int cpabe_dec(char* pk_path, char* sk_path, char* ct, char** pt){
+int cpabe_dec(char* pk_path, char* sk_path, void* ct, int ct_len, void** pt){
 
 	bswabe_pub_t* pub;
 	bswabe_prv_t* prv;

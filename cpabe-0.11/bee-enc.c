@@ -74,7 +74,7 @@ int cpabe_fenc(char* pk_path, char* pt_path, char* policy_str, char* ct_path){
 
 cpabebuf* cpabe_enc_b(char* pk_path, char* pt, int pt_len, char* policy_str, cpabebuf* buf){
 	int len = -1;
-	len = cpabe_enc_l(pk_path, pt, pt_len, policy_str, &(buf->data));
+	len = cpabe_enc(pk_path, pt, pt_len, policy_str, &(buf->data));
 	if(len == -1) {
 		return NULL;
 	}
@@ -82,11 +82,11 @@ cpabebuf* cpabe_enc_b(char* pk_path, char* pt, int pt_len, char* policy_str, cpa
 	return buf;
 }
 
-int cpabe_enc(char* pk_path, char* pt, char* policy_str, char** ct){
-	return cpabe_enc_l(pk_path, pt, strlen(pt), policy_str, ct);
+int cpabe_enc(char* pk_path, void* pt, int pt_len, char* policy_str, void** ct){
+	return cpabe_enc_l(pk_path, pt, pt_len, policy_str, ct);
 }
 
-int cpabe_enc_l(char* pk_path, char* pt, int pt_len, char* policy_str, char** ct){
+int cpabe_enc_l(char* pk_path, void* pt, int pt_len, char* policy_str, void** ct){
 	bswabe_pub_t* pub;
 	bswabe_cph_t* cph;
 	int file_len;

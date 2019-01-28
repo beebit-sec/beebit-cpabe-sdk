@@ -70,12 +70,13 @@ JNIEXPORT jbyteArray JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_dec
 	char *sk = (*env)->GetStringUTFChars(env, sk_path, 0);
 	jboolean isCopy;
 	jbyte* ct = (*env)->GetByteArrayElements(env, ct_str, &isCopy); 
+	int ct_len = (*env)->GetArrayLength(env, ct_str);
 
 	char* pt;
 
 	int len = 0;
 
-	if((len = cpabe_dec(pk, sk, (char*)ct, &pt)) == -1){
+	if((len = cpabe_dec(pk, sk, (char*)ct, ct_len, &pt)) == -1){
 		return NULL;
 	}
 

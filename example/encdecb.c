@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
 	fprintf(stderr, "[ct len = %d])\n", ctb->len);
 
 	cpabebuf* ptb = new_cpabebuf();
-	ptb = cpabe_dec_b(pk, sk, ctb->data, ptb);
+	ptb = cpabe_dec_b(pk, sk, ctb->data, ctb->len, ptb);
 	if(ptb == NULL) {
 		fprintf(stderr, "Decrypt failed!\n");
 		return EXIT_FAILURE;

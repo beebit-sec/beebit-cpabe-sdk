@@ -28,7 +28,7 @@ print("Encrypt success!")
 print("[ct len = %d]" % (clen));
 
 pt = pc.new_cpabebuf()
-pt = pc.cpabe_dec_b(pk, sk, pc.cdata(pc.cpabebuf_data(ct), clen), pt)
+pt = pc.cpabe_dec_b(pk, sk, pc.cdata(pc.cpabebuf_data(ct), clen), clen, pt)
 
 if pt is None:
 	print("Decrypt failed!")
