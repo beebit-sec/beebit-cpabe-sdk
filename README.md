@@ -17,7 +17,6 @@ The implementation of **beebit-cpabe-sdk** is based on the following open source
 	- glib (>2.0.0): <code>sudo apt install libglib2.0-dev</code>
 	- gmp (>4.0.0): <code>sudo apt install libgmp-dev</code>
 	- ssl: <code>sudo apt install libssl-dev</code>
-	- glib-2.0: <code>sudo apt install libglib2.0-dev</code>
 - **Library pbc**:
 	- Download source from [https://crypto.stanford.edu/pbc/](https://crypto.stanford.edu/pbc/)
 	- Unpack source tarball (eg., <code>tar zxvf pbc-0.5.14.tar.gz</code>)
