@@ -38,7 +38,7 @@ python keygen.py [sk] [pk] [mk] [no] [a1] ... [aN]
 python enc.py [pk] [pt] [ap] [ct]
 ~~~	
 - pk: path to public key
-- pt: path to orginal file (plaintext)
+- pt: path to original file (plaintext)
 - ap: access policy
 - ct: path to encrypted file (ciphertext)
 
@@ -53,7 +53,7 @@ python dec.py [pk] [sk] [ct] [pt]
 - pt: path to original file (plaintext)
 
 ### Encrypt / Decrypt
-Previous examples encrypt and decrypt files. In this example, you encrypt / decrypt input data.
+Previous examples encrypt and decrypt files. In this example, you can encrypt / decrypt input data.
 ~~~bash
 python encdec.py [pk] [sk] [ap]
 ~~~
