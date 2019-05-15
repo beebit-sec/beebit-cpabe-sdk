@@ -8,12 +8,12 @@ sudo make install
 ~~~	
 
 ## Evaluation
-There are three users.
-- Bob: teacher, cs department
-- Alice: student, cs department
-- John: teacher, mis department
+Assume there are three users.
+- Bob: teacher, CS department
+- Alice: student, CS department
+- John: teacher, MIS department
 
-Chagne to example directory
+Chagne directory to example directory
 ~~~bash
 cd example
 ~~~
@@ -24,7 +24,7 @@ cd example
 ~~~
 A public key, **pk**, and a master key, **mk**, will be generated in example directory.
 
-### Step 2. generate the secret keys for Bob and Alice
+### Step 2. generate the secret keys for Bob, Alice, and John
 ~~~base
 ./keygen sk_bob pk mk 3 "Bob" "CS" "Teacher"
 ./keygen sk_alice pk mk 3 "Alice" "CS" "Student"
@@ -32,7 +32,7 @@ A public key, **pk**, and a master key, **mk**, will be generated in example dir
 ~~~
 The secret keys, **sk_bob**, **sk_alice**, and **sk_john** will be generated for Bob, Alice, and John in example directory.
 
-### Step 3. Encrypt data for CS teacher
+### Step 3. Encrypt data for CS Teacher
 According to the users' attributes, only Bob can decrypt data.
 (There is a file data with content in example directorty.)
 
@@ -95,7 +95,7 @@ For command usage, please refer the following section.
 ./enc [pk] [pt] [ap] [ct]
 ~~~	
 - pk: path to public key
-- pt: path to orginal file (plaintext)
+- pt: path to original file (plaintext)
 - ap: access policy
 - ct: path to encrypted file (ciphertext)
 
@@ -110,7 +110,7 @@ For command usage, please refer the following section.
 - pt: path to original file (plaintext)
 
 ### Encrypt / Decrypt
-Previous examples encrypt and decrypt files. In this example, you encrypt / decrypt input data.
+Previous examples encrypt and decrypt files. In this example, you can encrypt / decrypt input data.
 ~~~bash
 ./encdec [pk] [sk] [ap]
 ./encdecb [pk] [sk] [ap]
