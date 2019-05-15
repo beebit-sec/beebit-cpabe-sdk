@@ -1,7 +1,7 @@
 # beebit-cpabe-sdk (v0.2)
-The **Beebit** project provides a set of modules for developers who attempt to secure data communication.
+The **Beebit** project provides a set of modules for developers who attempt to secure data communication in Internet of Thing (IoT) environment.
 
-The **beebit-cpabe-sdk** module implements a novel cryptosystem called Ciphertext-Policy Attribute-Based Encryption (**CP-ABE**)[1]. CP-ABE is an one-to-many asymmetric cryptosystem with supporting fine-grained access control. Data owner can encrypt plaintext to ciphertext with embedded access policy. Each data user has one secret key with personal attributes. Only the secret keys with attributes, that satisfy the access policy, can decrypt ciphertext to plaintext. We believe that CP-ABE is suitable in cloud and Internet of Things (IoT) environment.
+The **beebit-cpabe-sdk** module implements a novel cryptosystem called Ciphertext-Policy Attribute-Based Encryption (**CP-ABE**)[1]. CP-ABE is an one-to-many asymmetric cryptosystem with supporting fine-grained access control. Data owner can encrypt plaintext to ciphertext with embedded access policy. Each data user has one secret key with personal attributes. Only the secret keys with attributes, that satisfy the access policy, can decrypt ciphertext to plaintext. We believe that CP-ABE is suitable in cloud and IoT environment.
 
 The implementation of **beebit-cpabe-sdk** is based on the following open source projects.
 1. PBC Library: the pairing-based cryptography library from Standord University. [Link](https://crypto.stanford.edu/pbc/)
