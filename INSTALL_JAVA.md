@@ -2,6 +2,7 @@
 Java wrapper uses Java Native Interface (JNI) to call native C APIs of beebit-cpabe-sdk.
 
 ## Installation
+You MUST install Java Development Kit (JDK) before install this Java wrapper.
 ~~~make
 make clean
 make java
@@ -38,7 +39,7 @@ java -Djava.library.path=.. tw/edu/au/csie/ucan/beebit/keygen [sk] [pk] [mk] [no
 java -Djava.library.path=.. tw/edu/au/csie/ucan/beebit/enc [pk] [pt] [ap] [ct]
 ~~~	
 - pk: path to public key
-- pt: path to orginal file (plaintext)
+- pt: path to original file (plaintext)
 - ap: access policy
 - ct: path to encrypted file (ciphertext)
 
@@ -53,7 +54,7 @@ java -Djava.library.path=.. tw/edu/au/csie/ucan/beebit/dec [pk] [sk] [ct] [pt]
 - pt: path to original file (plaintext)
 
 ### Encrypt / Decrypt
-Previous examples encrypt and decrypt files. In this example, you encrypt / decrypt input data.
+Previous examples encrypt and decrypt files. In this example, you can encrypt / decrypt input data.
 ~~~bash
 java -Djava.library.path=.. tw/edu/au/csie/ucan/beebit/encdec [pk] [sk] [ap]
 ~~~
