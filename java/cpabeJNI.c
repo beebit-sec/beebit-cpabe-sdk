@@ -54,7 +54,7 @@ JNIEXPORT jbyteArray JNICALL Java_tw_edu_au_csie_ucan_beebit_cpabeJNI_enc
 
 	int len = 0;
 
-	if((len = cpabe_enc_l(pk, (char*)pt, pt_len, policy, &ct)) == -1){
+	if((len = cpabe_enc(pk, (char*)pt, pt_len, policy, &ct)) == -1){
 		return NULL;
 	}
 	jbyteArray bytes = (*env)->NewByteArray(env, len);

@@ -1,6 +1,11 @@
 # Python Wrapper
 Python wrapper uses Simplified Wrapper and Interface Generator (SWIG) to call native C APIs of beebit-cpabe-sdk.
 
+## Environment
+- swig: <code>sudo apt install swig</code>
+- python: <code>sudo apt install python</code>
+- python-dev: <code>sudo apt install python-dev</code>
+
 ## Installation
 ~~~make
 make clean

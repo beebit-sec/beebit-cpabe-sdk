@@ -1,6 +1,16 @@
 # Java Wrapper
 Java wrapper uses Java Native Interface (JNI) to call native C APIs of beebit-cpabe-sdk.
 
+## Environment
+- **Java Development Kit (JDK)**:
+	- default JDK: <code>sudo apt install default-jdk</code>
+
+- **Java Include**: make sure the following environment parameters in Makefile are correct
+	- JAVA_PATH
+	- JAVA_BIN_PATH
+	- JNI_H_PATH
+	- JNI_OS_H_PATH
+
 ## Installation
 You MUST install Java Development Kit (JDK) before install this Java wrapper.
 ~~~make

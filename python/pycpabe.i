@@ -20,7 +20,6 @@ extern int cpabe_setup(char* pk, char* mk);
 extern int cpabe_vkeygen(char* sk, char* pk, char* mk, int no, char** attr);
 extern int cpabe_keygen(char* sk, char* pk, char* mk, int no, ...);
 extern int cpabe_enc(char* pk, void* pt, int pt_len, char* ap, void** ct);
-extern int cpabe_enc_l(char* pk, void* pt, int pt_len, char* ap, void** ct);
 extern cpabebuf* cpabe_enc_b(char* pk, char* pt, int pt_len, char* ap, cpabebuf* buf);
 extern int cpabe_fenc(char* pk, char* pt, char* ap, char* ct);
 extern int cpabe_dec(char* pk, char* sk, void* ct, int ct_len, void** pt);
